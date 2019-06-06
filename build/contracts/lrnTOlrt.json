@@ -1,0 +1,191 @@
+{
+  "contractName": "lrnTOlrt",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.0+commit.1d4f565a\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{},\"notice\":\"The lrnTOlrt maps LRT coin from NEO blockchain to LRN coin on TRON blockchain\\r using a smart contract on the TRON network (coded with solidity)\\r\"}},\"settings\":{\"compilationTarget\":{\"/C/Users/super/Downloads/lrnTOlrt/contracts/lrnTOlrt.sol\":\"lrnTOlrt\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/super/Downloads/lrnTOlrt/contracts/lrnTOlrt.sol\":{\"keccak256\":\"0x868a2d7e10a1b8168f9104668eff783c710f83afdbe9ec651bf61ef84dee22c6\",\"urls\":[\"bzzr://4abc02e779a2eb256fbad797e0545434e133d31ed6da55617cd8c87484c4a714\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3fe6080604052600080fdfea165627a7a723058203248dec432bc65446fa54635fa8e828414dbb2bf60aecd7364f7dc79ae05bf020029",
+  "deployedBytecode": "0x6080604052600080fdfea165627a7a723058203248dec432bc65446fa54635fa8e828414dbb2bf60aecd7364f7dc79ae05bf020029",
+  "sourceMap": "195:54:1:-;;;218:28;8:9:-1;5:2;;;30:1;27;20:12;5:2;218:28:1;195:54;;;;;;",
+  "deployedSourceMap": "195:54:1:-;;;;;",
+  "source": "pragma solidity >=0.4.21 <0.6.0;\r\n\r\n/**\r\n * The lrnTOlrt maps LRT coin from NEO blockchain to LRN coin on TRON blockchain\r\n using a smart contract on the TRON network (coded with solidity)\r\n */\r\ncontract lrnTOlrt\r\n{\r\n\tconstructor() public\r\n\t{\r\n\t}\r\n}",
+  "sourcePath": "C:/Users/super/Downloads/lrnTOlrt/contracts/lrnTOlrt.sol",
+  "ast": {
+    "absolutePath": "/C/Users/super/Downloads/lrnTOlrt/contracts/lrnTOlrt.sol",
+    "exportedSymbols": {
+      "lrnTOlrt": [
+        63
+      ]
+    },
+    "id": 64,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 58,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".21",
+          "<",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "The lrnTOlrt maps LRT coin from NEO blockchain to LRN coin on TRON blockchain\r\nusing a smart contract on the TRON network (coded with solidity)\r",
+        "fullyImplemented": true,
+        "id": 63,
+        "linearizedBaseContracts": [
+          63
+        ],
+        "name": "lrnTOlrt",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 61,
+              "nodeType": "Block",
+              "src": "241:5:1",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 62,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 59,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "229:2:1"
+            },
+            "returnParameters": {
+              "id": 60,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "241:0:1"
+            },
+            "scope": 63,
+            "src": "218:28:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 64,
+        "src": "195:54:1"
+      }
+    ],
+    "src": "0:249:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/C/Users/super/Downloads/lrnTOlrt/contracts/lrnTOlrt.sol",
+    "exportedSymbols": {
+      "lrnTOlrt": [
+        63
+      ]
+    },
+    "id": 64,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 58,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".21",
+          "<",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:32:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "The lrnTOlrt maps LRT coin from NEO blockchain to LRN coin on TRON blockchain\r\nusing a smart contract on the TRON network (coded with solidity)\r",
+        "fullyImplemented": true,
+        "id": 63,
+        "linearizedBaseContracts": [
+          63
+        ],
+        "name": "lrnTOlrt",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 61,
+              "nodeType": "Block",
+              "src": "241:5:1",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 62,
+            "implemented": true,
+            "kind": "constructor",
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 59,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "229:2:1"
+            },
+            "returnParameters": {
+              "id": 60,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "241:0:1"
+            },
+            "scope": 63,
+            "src": "218:28:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 64,
+        "src": "195:54:1"
+      }
+    ],
+    "src": "0:249:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x939A3BDa8167c356F018a1AdA389979bC0b7adB8",
+      "transactionHash": "0x618359b387e6008c1de29a16a8f1fba27048319af7f2a590a6b2d4e31b2e201b"
+    }
+  },
+  "schemaVersion": "3.0.9",
+  "updatedAt": "2019-06-06T03:18:15.505Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {},
+    "notice": "The lrnTOlrt maps LRT coin from NEO blockchain to LRN coin on TRON blockchain\r using a smart contract on the TRON network (coded with solidity)\r"
+  }
+}
