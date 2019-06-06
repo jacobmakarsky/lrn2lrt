@@ -29,10 +29,10 @@ contract lrnTOlrt
 
 	//need a mapping from NEO-address to number of claimable LRT tokens
 	mapping (bytes32 => uint) neoBalances;
-	//***THIS WON'T WORK, NEED AN ORACLE (or a script) TO MAsP THIS OUTSIDE THE CONTRACT
+	//***THIS WON'T WORK, NEED AN ORACLE (or a script) TO MAP THIS OUTSIDE THE CONTRACT
     //For now, we will just assume we know the balances in each account for testing
 
-	function setNeoBalance(bytes32 neoAddr, uint balance) public onlyOwner
+	function setNeoBalance(bytes32 neoAddr, uint balance) public
 	{
 		neoBalances[neoAddr] = balance;
 	}
@@ -54,6 +54,7 @@ contract lrnTOlrt
 		//... like this
 		//		neoWallet.transfer(neoBalance[tronWallet]);
 
+		
         tronWallet.transfer(neoBalances[neoWallet]);
 	}
 }
