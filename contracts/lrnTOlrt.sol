@@ -10,7 +10,7 @@ contract lrnTOlrt
 {
 	//store the tronWallet address, neoWallet address and neo wallet signature
 	address payable tronWallet;
-	bytes32 neoWallet;
+	address neoWallet;
 	bytes32 neoSignature;
 
 	address owner; //the owner must be sender of the message
@@ -28,23 +28,21 @@ contract lrnTOlrt
     }
 
 	//need a mapping from NEO-address to number of claimable LRT tokens
-	mapping (bytes32 => uint) neoBalances;
+	mapping (address => uint) neoBalances;
 	//***THIS WON'T WORK, NEED AN ORACLE (or a script) TO MAP THIS OUTSIDE THE CONTRACT
     //For now, we will just assume we know the balances in each account for testing
 
-	function setNeoBalance(bytes32 neoAddr, uint balance) public
+	function setNeoBalance(uint balance, address neoAddr) public
 	{
 		neoBalances[neoAddr] = balance;
 	}
 
 	//send the coin to the tronAddress only if the sender is the owner
 	//... and NEO address is valid
-	function claim(address payable tronAddr, bytes32 neoAddr, bytes32 neoSig) public
+	function claim(address payable tronAddr, address neoAddr) public
 	{
 		//take out the neo wallet address
 		neoWallet = neoAddr;
-		//take out the neo wallet signature
-		neoSignature = neoSig;
 		//take out the tron wallet address
 		tronWallet = tronAddr;
 
@@ -53,7 +51,6 @@ contract lrnTOlrt
 		//2) transfer amount from neoWallet to tronWallet, will work something
 		//... like this
 		//		neoWallet.transfer(neoBalance[tronWallet]);
-
 		
         tronWallet.transfer(neoBalances[neoWallet]);
 	}
