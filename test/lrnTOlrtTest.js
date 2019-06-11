@@ -4,24 +4,30 @@ var lrt = artifacts.require("lrt.sol");
 
 contract('lrnTOlrt', function(accounts)
 {
-    const numberToBN = (num) => {
-        const numHex = "0x" + num.toString(16);
-        return web3.utils.toBN(numHex);
-      };
-
     it("Should deposit 32 LRT", async function() {
+        //Deploy necessary contracts
         let instance = await l2l.deployed();
+        let lrtToken = await lrt.deployed();
 
-        const bal = await instance.setNeoBalance(
-            numberToBN(32),
-            "0x033a8De584c00E70F84dD1F4bcF73f904975D24F"
+        const balBefore = await lrtToken.balanceOf(accounts[1]);
+        const transferAmount = 32;
+
+        //Transfer LRT to be claimed from the conversion contract
+        lrtToken.transfer(instance.address, transferAmount);
+
+        //Set LRN balance of a dummy NEO account
+        await instance.setNeoBalance(
+            "AM5ZSXKMfCck9fLATKtqjVm7iYW9uzNp2K",
+            transferAmount
         );
 
-        console.log("bal = " + bal);
+        //Claim the LRN balance of this account in LRT
+        await instance.claim(accounts[1], "AM5ZSXKMfCck9fLATKtqjVm7iYW9uzNp2K");
 
-        const tx = await instance.claim(accounts[0], "0x033a8De584c00E70F84dD1F4bcF73f904975D24F");
-        let balance = await lrt.balanceOf(accounts[0]);
-        console.log(balance);
-        assert.equal(balance, numberToBN(32), "32 wasn't in the account");
+        let balAfter = await lrtToken.balanceOf(accounts[1]);
+        let balDiff = balAfter.sub(balBefore);
+
+        //Check if the correct amount was added to the Tron wallet
+        assert(transferAmount, balDiff, "32 wasn't added to the account");
     });
 });

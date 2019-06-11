@@ -18,40 +18,39 @@ contract lrnTOlrt
 {
 	//store the tronWallet address, neoWallet address and neo wallet signature
 	address payable tronWallet;
-	bytes32 neoWallet;
+	string neoWallet;
 	bytes32 neoSignature;
 
 	address owner; //the owner must be sender of the message
-
-	address lrtAddress;
+	ERC20 lrt;
 
 	constructor(address _lrtAddress) public
 	{
 		owner = msg.sender;
-		lrtAddress = _lrtAddress;
+		//Define LRT as an ERC20 token
+		lrt = ERC20(_lrtAddress);
 	}
 
 	//require owner of neoAddress to be the sender
 	modifier onlyOwner
     {
-        require (msg.sender == owner);
+        require (msg.sender == owner, "Not owner of contract");
         _;
     }
 
 	//need a mapping from NEO-address to number of claimable LRT tokens
-	mapping (bytes32 => uint256) neoBalances;
+	mapping (string => uint) neoBalances;
 	//***THIS WON'T WORK, NEED AN ORACLE (or a script) TO MAP THIS OUTSIDE THE CONTRACT
     //For now, we will just assume we know the balances in each account for testing
 
-	function setNeoBalance(uint256 balance, bytes32 neoAddr) public returns (uint256)
+	function setNeoBalance(string memory neoAddr, uint balance) public
 	{
 		neoBalances[neoAddr] = balance;
-		return neoBalances[neoAddr];
 	}
 
 	//send the coin to the tronAddress only if the sender is the owner
 	//... and NEO address is valid
-	function claim(address payable tronAddr, bytes32 neoAddr) public
+	function claim(address payable tronAddr, string memory neoAddr) public
 	{
 		//take out the neo wallet address
 		neoWallet = neoAddr;
@@ -64,10 +63,6 @@ contract lrnTOlrt
 		//... like this
 		//		neoWallet.transfer(neoBalance[tronWallet]);
 
-		ERC20 lrt = ERC20(lrtAddress);
-
     	require(lrt.transfer(tronWallet, neoBalances[neoWallet]), "Claim failed");
-
-		//lrt.transfer(tronWallet, neoBalances[neoWallet]);
 	}
 }
