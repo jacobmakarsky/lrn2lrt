@@ -43,7 +43,7 @@ contract lrnTOlrt
 	//***THIS WON'T WORK, NEED AN ORACLE (or a script) TO MAP THIS OUTSIDE THE CONTRACT
     //For now, we will just assume we know the balances in each account for testing
 
-	function setNeoBalance(string memory neoAddr, uint balance) public
+	function setNeoBalance(string memory neoAddr, uint balance) public onlyOwner
 	{
 		neoBalances[neoAddr] = balance;
 	}
@@ -64,5 +64,6 @@ contract lrnTOlrt
 		//		neoWallet.transfer(neoBalance[tronWallet]);
 
     	require(lrt.transfer(tronWallet, neoBalances[neoWallet]), "Claim failed");
+		neoBalances[neoWallet] = 0;
 	}
 }
