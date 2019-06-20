@@ -1,5 +1,7 @@
 pragma solidity >=0.4.0 <0.7.0;
 
+import "./ECMath.sol";
+
 contract ERC20 {
 	function totalSupply() public view returns (uint256);
     function balanceOf(address who) public view returns (uint256);
@@ -22,13 +24,16 @@ contract lrnTOlrt
 	bytes32 neoSignature;
 
 	address owner; //the owner must be sender of the message
+
 	ERC20 lrt;
+	ECMath math;
 
 	constructor(address _lrtAddress) public
 	{
 		owner = msg.sender;
 		//Define LRT as an ERC20 token
 		lrt = ERC20(_lrtAddress);
+		math = new ECMath();
 	}
 
 	//require owner of neoAddress to be the sender
@@ -50,7 +55,7 @@ contract lrnTOlrt
 
 	//send the coin to the tronAddress only if the sender is the owner
 	//... and NEO address is valid
-	function claim(address payable tronAddr, string memory neoAddr) public
+	function claim(address payable tronAddr, string memory neoAddr, bytes memory neoSig) public
 	{
 		//take out the neo wallet address
 		neoWallet = neoAddr;
@@ -63,7 +68,29 @@ contract lrnTOlrt
 		//... like this
 		//		neoWallet.transfer(neoBalance[tronWallet]);
 
+		require(verifyClaim(tronAddr, neoSig), "Signature invalid");
     	require(lrt.transfer(tronWallet, neoBalances[neoWallet]), "Claim failed");
 		neoBalances[neoWallet] = 0;
+	}
+
+	function verifyClaim(address tronAddr, bytes memory neoSig) public returns (bool)
+	{
+		bytes memory tronBytes = abi.encodePacked(tronAddr);
+
+		uint256 e;
+		uint256 r;
+		uint256 s;
+		uint8 v;
+
+		assembly {
+			e := byte(0, mload(add(tronBytes, 0x20)))
+			r := byte(0, mload(add(neoSig, 0x20)))
+			s := byte(0, mload(add(neoSig, 0x40)))
+			v := byte(0, mload(add(neoSig, 0x60)))
+		}
+
+		uint256[2] memory addrCoordinates = math.recover(e, v, r, s);
+
+		return math.verify(addrCoordinates[0], addrCoordinates[1], e, r, s);
 	}
 }
