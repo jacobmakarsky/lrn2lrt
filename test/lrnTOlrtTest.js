@@ -47,8 +47,8 @@ contract('lrnTOlrt', function(accounts)
 
         //Checks if invalid signature error occurs when calling an incorrect signature
         await truffleAssert.reverts(instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
-                                             "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
-                                             "0x955de4f6336eacfa9f41592a4655e13b46d148e22cc4413185663924c887ec321b58d483e1d7c15681ff5f23070e2b9170ab9bc3cd0862a354c5e864c52be480"),
+                                                    "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
+                                                    "0x955de4f6336eacfa9f41592a4655e13b46d148e22cc4413185663924c887ec321b58d483e1d7c15681ff5f23070e2b9170ab9bc3cd0862a354c5e864c52be480"),
                                     "Signature invalid");
     });
 
@@ -68,15 +68,10 @@ contract('lrnTOlrt', function(accounts)
                              "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
                              "0x62d930ee6d41790a6bdf1653e487499b11e8db780dada84f8b1b52b577080e383c09d99eb90f3f71fb2586c95f74a5a03d5a49272e2d04e2441978727411ead4");
 
-        //Makes valid claim for the second time while checking balance
-        let before = await lrtToken.balanceOf("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006");
-        await instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
-                             "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
-                             "0x62d930ee6d41790a6bdf1653e487499b11e8db780dada84f8b1b52b577080e383c09d99eb90f3f71fb2586c95f74a5a03d5a49272e2d04e2441978727411ead4");
-        let after = await lrtToken.balanceOf("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006");
-        let diff = after.sub(before);
-
-        //Balance should not be changed by the second claim
-        assert.equal(diff, 0, "NEO account claimed tokens twice");
+        //Makes valid claim for the second time, checks to see if it's allowed
+        await truffleAssert.reverts(instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
+                                                    "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
+                                                    "0x62d930ee6d41790a6bdf1653e487499b11e8db780dada84f8b1b52b577080e383c09d99eb90f3f71fb2586c95f74a5a03d5a49272e2d04e2441978727411ead4"),
+                                    "No tokens to claim");
     });
 });

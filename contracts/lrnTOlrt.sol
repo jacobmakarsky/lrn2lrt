@@ -49,6 +49,7 @@ contract lrnTOlrt
 	function claim(address payable tronAddr, string memory neoAddr, bytes memory neoSig) public
 	{
 		require(verifyClaim(tronAddr, neoSig), "Signature invalid");
+		require(neoBalances[neoAddr] > 0, "No tokens to claim");
     	require(lrt.transfer(tronAddr, neoBalances[neoAddr]), "Claim failed");
 		neoBalances[neoAddr] = 0;
 	}
