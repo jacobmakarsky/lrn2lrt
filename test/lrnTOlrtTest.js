@@ -44,23 +44,12 @@ contract('lrnTOlrt', function(accounts)
 
         //Set LRN balance of a dummy NEO account
         await instance.setNeoBalance("AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4", transferAmount);
-        
-        //Claim the LRN balance of this account in LRT
-        //await instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
-        //                     "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
-        //                     "0x10f28cce1815d005b6e172d19070d91252187c7c320616ee4d9e1b104e1c93097dd639407aa1a1b2b3057b30efcb03444330927616f4cf4b22be9376ec2977f4");
-
-        //let balAfter = await lrtToken.balanceOf("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006");
-        //let balDiff = balAfter.sub(balBefore);
-
-        //Check if the correct amount was added to the Tron wallet
-        //assert.equal(balDiff, 0, "Token was added to the account");
 
         //Checks if invalid signature error occurs when calling an incorrect signature
         await truffleAssert.reverts(instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
                                              "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
-                                             "0x10f28cce1815d005b6e172d19070d91252187c7c320616ee4d9e1b104e1c93097dd639407aa1a1b2b3057b30efcb03444330927616f4cf4b22be9376ec2977f4"),
-                              "Signature invalid");
+                                             "0x955de4f6336eacfa9f41592a4655e13b46d148e22cc4413185663924c887ec321b58d483e1d7c15681ff5f23070e2b9170ab9bc3cd0862a354c5e864c52be480"),
+                                    "Signature invalid");
     });
 
     it("Can't claim twice", async function() {
@@ -69,14 +58,17 @@ contract('lrnTOlrt', function(accounts)
         let lrtToken = await lrt.deployed();
 
         const transferAmount = 100;
+
         //Transfer LRT to be claimed from the conversion contract
         lrtToken.transfer(instance.address, transferAmount);
         await instance.setNeoBalance("AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4", transferAmount);
 
+        //Makes valid claim for the first time
         await instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
                              "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
                              "0x62d930ee6d41790a6bdf1653e487499b11e8db780dada84f8b1b52b577080e383c09d99eb90f3f71fb2586c95f74a5a03d5a49272e2d04e2441978727411ead4");
 
+        //Makes valid claim for the second time while checking balance
         let before = await lrtToken.balanceOf("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006");
         await instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
                              "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
@@ -84,6 +76,7 @@ contract('lrnTOlrt', function(accounts)
         let after = await lrtToken.balanceOf("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006");
         let diff = after.sub(before);
 
+        //Balance should not be changed by the second claim
         assert.equal(diff, 0, "NEO account claimed tokens twice");
     });
 });
