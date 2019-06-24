@@ -59,6 +59,7 @@ contract lrnTOlrt
 
 	//Verifies the signature of the claimer
 	//Notes: Doesn't seem to distingish between who submits the signature
+	//Seems to accept any valid signature, doesn't distingish message
 	//Doesn't seem to view signatures that start with a as valid
 	//Also requires signature to be in bytes format when calling function (ie add 0x to the front)
 	function verifyClaim(address tronAddr, bytes memory neoSig) public returns (bool)
