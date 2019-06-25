@@ -48,7 +48,7 @@ contract('lrnTOlrt', function(accounts)
         //Checks if invalid signature error occurs when calling an incorrect signature
         await truffleAssert.reverts(instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
                                                     "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
-                                                    "0x3915439f874e5d698e4caaf2b0a25efe3d23e5c96d1ff7fdb43edbc4c6be8f145e5815e2ac905a1a1565ff685ead1784808f68a395b13728a12098172df7a927"),
+                                                    "0x9315439f874e5d698e4caaf2b0a25efe3d23e5c96d1ff7fdb43edbc4c6be8f145e5815e2ac905a1a1565ff685ead1784808f68a395b13728a12098172df7a927"),
                                     "Signature invalid");
     });
 

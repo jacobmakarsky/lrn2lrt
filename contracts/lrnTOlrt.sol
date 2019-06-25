@@ -53,14 +53,15 @@ contract lrnTOlrt
 	{
 		require(verifyClaim(tronAddr, neoSig), "Signature invalid");
 		require(neoBalances[neoAddr] > 0, "No tokens to claim");
+		//If all the above conditions are met, then the transfer happen
     	require(lrt.transfer(tronAddr, neoBalances[neoAddr]), "Claim failed");
+		//The claimers collectable balance is reset after the transfer occurs
 		neoBalances[neoAddr] = 0;
 	}
 
 	//Verifies the signature of the claimer
 	//Notes: Doesn't seem to distingish between who submits the signature
 	//Seems to accept any valid signature, doesn't distingish message
-	//Doesn't seem to view signatures that start with a as valid
 	//Also requires signature to be in bytes format when calling function (ie add 0x to the front)
 	function verifyClaim(address tronAddr, bytes memory neoSig) public returns (bool)
 	{
