@@ -63,6 +63,7 @@ contract lrnTOlrt
 	//Notes: Doesn't seem to distingish between who submits the signature
 	//Seems to accept any valid signature, doesn't distingish message
 	//Also requires signature to be in bytes format when calling function (ie add 0x to the front)
+	//A bit more consistent if you sign with a hex rather than text
 	function verifyClaim(address tronAddr, bytes memory neoSig) public returns (bool)
 	{
 		bytes memory tronBytes = abi.encodePacked(tronAddr);

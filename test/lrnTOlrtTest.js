@@ -22,7 +22,7 @@ contract('lrnTOlrt', function(accounts)
         //Claim the LRN balance of this account in LRT
         await instance.claim("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006",
                             "AJaq6fXGw2MmqkF1zFL5YpESazKUZzpjp4",
-                            "0x2323a29ac2b95a439c5b93f356718cda2e3dfd2ad4d12fc4d0b451f068b657a03b35feeca82dbb588bdb8ab0da1aacfa010686030fd24cfb40e0186e0fb8e935");
+                            "0x08c434fea49c3c211b13688fa7d584fb005262ffecdf5eb0186f979893a8b3adf1e852ad219cac7d71326217f2e17c735180ad0888f3463f102b964d7328809e");
 
         let balAfter = await lrtToken.balanceOf("0x3132e27d840b8C1e24a5eE1f1BF611dD6f6f0006");
         let balDiff = balAfter.sub(balBefore);
