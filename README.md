@@ -19,8 +19,7 @@ Seems to be a bit more consistent if you sign with a hex rather than text.
 Addresses are hardcoded in the test due to the nature of message signing, if you want to test on your machine you'll need to change the addresses and signatures in the test file.
 
 Bugs:
-Doesn't seem to distingish between what NEO address sends the signature.
-Seems to accept any valid signature, message doesn't seem to matter.
+Accepts any tron address when calling the contract, but this shouldn't matter as long as the NEO signature being passed in was made with the same NEO address being passed in. The NEO signature can be made with any message and the TRON address being passed in can be any address. We think they do not need to match. 
 
 Questions to Look Into for the Future:
 Is the tron address hashed properly for validation?
